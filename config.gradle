@@ -1,0 +1,195 @@
+static def getVersionDescription() {
+    String version = getVersionName() + "." + String.format("%03d", getVersionCode()) + String.valueOf(getDate())
+    return version
+}
+
+static def getVersionName() {
+    return "1.0"
+}
+
+static def getVersionCode() {
+    Integer code = 1
+    return code
+}
+
+static def getDate() {
+    def date = new Date()
+    String formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+
+static def getTimeStamp() {
+    return System.currentTimeMillis()
+}
+
+ext {
+    buidConfig = [
+            'compileSdkVersion' : 29,
+            'targetSdkVersion'  : 29,
+            'minSdkVersion'     : 24,
+            'versionCode'       : getVersionCode(),
+            'versionName'       : getVersionName(),
+            'versionDescription': getVersionDescription(),
+            'versionDate'       : getDate(),
+            'createTimeStamp'   : getTimeStamp(),
+            'buildToolsVersion' : '29.0.3',
+            'ndkVersion'        : '21.0.6113669'
+    ]
+    versions = [
+            'kotlin'       : '1.3.72',
+            'gradle'       : '3.6.3',
+            'androidx'     : [
+                    'appcompat'          : '1.1.0',
+                    'material'           : '1.3.0-beta01',
+                    'coreKtx'            : '1.5.0-beta01',
+                    'constraintlayout'   : '1.1.3',
+                    'recyclerview'       : '1.2.0-alpha03',
+                    'annotation'         : '1.1.0',
+                    'lifecycleExtensions': '2.2.0',
+                    'lifecycleKapt'      : '2.2.0',
+                    'databindingKapt'    : '3.5.0',
+                    'multidex'           : '2.0.1',
+            ],
+            hacknife       : [
+                    'immersive'   : '1.2.4',
+                    'skinswitcher': '1.7.0',
+                    'onpermission': '1.1.6',
+                    "onlite"      : '1.5.4',
+                    'indicator'   : '1.0.7',
+                    'matteglass'  : '1.0.9',
+                    'wifimanager' : '1.0.2',
+                    'loading'     : '1.0.2',
+                    'coolprogress': '1.1.3',
+                    'player'      : '1.2.5',
+                    'ijkplayer'   : '0.8.8',
+                    'radiobutton' : '1.1.0',
+            ],
+            autosize       : '1.2.1',
+            logger         : '2.2.0',
+            rx             : [
+                    'rxjava'   : '2.1.12',
+                    'rxandroid': '2.0.2',
+            ],
+            'retrofit'     : '2.4.0',
+            'converterFile': '1.0.1',
+            'okhttp'       : '3.10.0',
+            'glide'        : '4.11.0',
+            'lottie'       : '1.5.3',
+            'circleview'   : '3.1.0',
+            'cardview'     : '1.0.0',
+            'refresh'      : '2.0.1',
+            'dlna'         : '1.0.1',
+            'leakcanary'   : '2.5',
+            'blockcanary'  : '1.5.0',
+            'bugly'        : '3.2.3',
+            'switchButton' : '0.0.3',
+            'qqmusic'      : '2.3.0',
+            'loginsharepay': '1.1.7',
+            'searchedit'   : '1.0.8',
+            'easyfloat'    : '1.3.4',
+            'videocache'   : '2.7.1',
+            'radiobutton'  : '1.1.0',
+            'lua'          : '2.4.0',
+            'editorCore'   : '1.1.0',
+            'editorLua'    : '1.1.0',
+            'recyclerSwip' : '1.1.4',
+            'viewAnimator' : '2.4@aar',
+
+    ]
+    dependents = [
+            'gradle'          : "com.android.tools.build:gradle:${versions.gradle}",
+            'kotlin'          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+            'kotlinReflect'   : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
+            'kotlinPlugin'    : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+            'androidx'        : [
+                    'appcompat'          : "androidx.appcompat:appcompat:${versions.androidx.appcompat}",
+                    'material'           : "com.google.android.material:material:${versions.androidx.material}",
+                    'coreKtx'            : "androidx.core:core-ktx:${versions.androidx.coreKtx}",
+                    'constraintlayout'   : "androidx.constraintlayout:constraintlayout:${versions.androidx.constraintlayout}",
+                    'recyclerview'       : "androidx.recyclerview:recyclerview:${versions.androidx.recyclerview}",
+                    'annotation'         : "androidx.annotation:annotation:${versions.androidx.annotation}",
+                    'lifecycleExtensions': "androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycleExtensions}",
+                    'lifecycleKapt'      : "android.arch.lifecycle:compiler:${versions.androidx.lifecycleKapt}",
+                    'databindingKapt'    : "com.android.databinding:compiler:${versions.androidx.databindingKapt}",
+                    'multidex'           : "androidx.multidex:multidex:${versions.androidx.multidex}",
+            ],
+            'hacknife'        : [
+                    'immersive'           : "com.hacknife:immersive:${versions.hacknife.immersive}",
+                    'skinswitcher'        : "com.hacknife.skinswitcher:skinswitcher-core:${versions.hacknife.skinswitcher}",
+                    'skinswitcherCompiler': "com.hacknife.skinswitcher:skinswitcher-compiler:${versions.hacknife.skinswitcher}",
+                    'onpermission'        : "com.hacknife:onpermission:${versions.hacknife.onpermission}",
+                    'onlite'              : "com.hacknife.onlite:onlite:${versions.hacknife.onlite}",
+                    'onliteCompiler'      : "com.hacknife.onlite:onlite-compiler:${versions.hacknife.onlite}",
+                    'indicator'           : "com.hacknife:indicator:${versions.hacknife.indicator}",
+                    'matteglass'          : "com.hacknife:matteglass:${versions.hacknife.matteglass}",
+                    'wifimanager'         : "com.hacknife:wifimanager:${versions.hacknife.wifimanager}",
+                    'loading'             : "com.hacknife:loading:${versions.hacknife.loading}",
+                    'coolprogress'        : "com.hacknife:coolprogress:${versions.hacknife.coolprogress}",
+                    'player'              : "com.hacknife:iplayer:${versions.hacknife.player}",
+                    'ijkplayerJava'       : "com.hacknife.ijkplayer:ijkplayer-java:${versions.hacknife.ijkplayer}",
+                    'ijkplayerArmv7a'     : "com.hacknife.ijkplayer:ijkplayer-armv7a:${versions.hacknife.ijkplayer}",
+                    'radiobutton'         : "com.hacknife:radiobutton:${versions.hacknife.radiobutton}"
+            ],
+            'autosize'        : "me.jessyan:autosize:${versions.autosize}",
+            'logger'          : "com.orhanobut:logger:${versions.logger}",
+            'retrofit'        : [
+                    'retrofit'        : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+                    'converterGson'   : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+                    'converterScalars': "com.squareup.retrofit2:converter-scalars:${versions.retrofit}",
+                    'adapterRxjava2'  : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+                    'converterFile'   : "com.hacknife.retrofit2:converter-file:${versions.converterFile}",
+            ],
+            'okhttp'          : [
+                    'okhttp'            : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+                    'loggingInterceptor': "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
+            ],
+            'rx'              : [
+                    'rxjava'   : "io.reactivex.rxjava2:rxjava:${versions.rx.rxjava}",
+                    'rxandroid': "io.reactivex.rxjava2:rxandroid:${versions.rx.rxandroid}",
+            ],
+            'glide'           : [
+                    'glide'   : "com.github.bumptech.glide:glide:${versions.glide}",
+                    'compiler': "com.github.bumptech.glide:compiler:${versions.glide}",
+            ],
+            'lottie'          : "com.airbnb.android:lottie:${versions.lottie}",
+            'circleview'      : "de.hdodenhof:circleimageview:${versions.circleview}",
+            'cardview'        : "androidx.cardview:cardview:${versions.cardview}",
+            'refresh'         : [
+                    'kernel': "com.scwang.smart:refresh-layout-kernel:${versions.refresh}",
+                    'header': "com.scwang.smart:refresh-header-classics:${versions.refresh}",
+                    'footer': "com.scwang.smart:refresh-footer-classics:${versions.refresh}",
+            ],
+            'dlna'            : [
+                    'musickit': "com.linkplay.musickit:LPMusicKit:${versions.dlna}",
+                    'ble'     : "com.linkplay.ble:LPBLESetupKit:${versions.dlna}",
+            ],
+            'leakcanary'      : "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
+            'blockcanary'     : [
+                    'blockcanaryAndroid'    : "com.github.markzhai:blockcanary-android:${versions.blockcanary}",
+                    'blockcanaryAndroidNoOp': "com.github.markzhai:blockcanary-no-op:${versions.blockcanary}",
+            ],
+            'bugly'           : [
+                    'crashreport': "com.tencent.bugly:crashreport:${versions.bugly}",
+            ],
+            'switchButton'    : "com.github.zcweng:switch-button:${versions.switchButton}",
+            'qqmusic'         : [
+                    'youxi'     : "com.tencent.yunxiaowei.dmsdk:core:${versions.qqmusic}",
+                    'webviewsdk': "com.tencent.yunxiaowei.webviewsdk:webviewsdk:${versions.qqmusic}",
+            ],
+            'loginsharepay'   : [
+                    'core'  : "com.hacknife:loginsharepay:${versions.loginsharepay}",
+                    'wechat': "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
+                    'weibo' : "com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar",
+            ],
+            'searchedit'      : "com.github.YangsBryant:BSearchEdit:${versions.searchedit}",
+            'easyfloat'       : "com.github.princekin-f:EasyFloat:${versions.easyfloat}",
+            'videocache'      : "com.danikula:videocache:${versions.videocache}",
+            'radiobutton'     : "com.hacknife:radiobutton:${versions.radiobutton}",
+            'lua'             : "com.github.vimfung.luascriptcore:luascriptcore:${versions.lua}",
+            'editorCore'      : "com.brackeys.ui:editorkit:${versions.editorCore}",
+            'editorLua'       : "com.brackeys.ui:language-lua:${versions.editorLua}",
+            'recyclerSwip'    : "com.yanzhenjie:recyclerview-swipe:${versions.recyclerSwip}",
+            'viewAnimator'    : "com.daimajia.androidanimations:library:${versions.viewAnimator}",
+            'viewAnimatorCore': "com.daimajia.easing:library:${versions.viewAnimator}"
+    ]
+}

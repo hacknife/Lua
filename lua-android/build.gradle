@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+apply from: './../config.gradle'
+
+android {
+    compileSdkVersion buidConfig.compileSdkVersion
+    buildToolsVersion buidConfig.buildToolsVersion
+    ndkVersion buidConfig.ndkVersion
+    defaultConfig {
+
+        minSdkVersion buidConfig.minSdkVersion
+        targetSdkVersion buidConfig.targetSdkVersion
+        versionCode buidConfig.versionCode
+        versionName buidConfig.versionName
+
+        ndk {
+            moduleName "LuaScriptCore"
+            stl "c++_static"
+            ldLibs "log"
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+            //筛选只需要的架构，其中armeabi、mips、mips64已标记过时
+        }
+
+        externalNativeBuild {
+            ndkBuild {
+                arguments "APP_STL=c++_static",
+                        "NDK_DEBUG=1",
+                        "APP_PLATFORM=android-16",
+                        "NDK_TOOLCHAIN_VERSION=clang"
+
+                cppFlags "-frtti",
+                        "-fexceptions",
+                        "-std=c++11",
+                        "-g",
+                        "-Wno-deprecated-declarations",
+                        "-fpermissive"
+
+            }
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = []
+            jni.srcDirs "src/main/jni", "../lua-core/src", "../lua-common"
+        }
+    }
+
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk"
+        }
+
+    }
+
+
+}
+
+publish {
+    userOrg = 'hacknife'
+    groupId = 'com.hacknife'
+    artifactId = 'lua'
+    publishVersion = '0.0.2'
+    desc = 'Lua'
+    website = 'https://github.com/hacknife/lua'
+}
