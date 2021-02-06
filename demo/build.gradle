@@ -6,7 +6,7 @@ android {
     compileSdkVersion buidConfig.compileSdkVersion
     ndkVersion buidConfig.ndkVersion
     defaultConfig {
-        applicationId "com.hacknife.lua"
+        applicationId "com.hacknife.demo"
         minSdkVersion buidConfig.minSdkVersion
         targetSdkVersion buidConfig.targetSdkVersion
         versionCode buidConfig.versionCode

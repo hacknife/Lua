@@ -16,10 +16,8 @@ public class LuaValue extends LuaBaseObject {
     @Override
     protected void finalize() throws Throwable {
         if (_tableId > 0) {
-            Log.v("dzq", "finalize:" + _tableId);
-//            LuaNativeUtil.releaseNativeObject(_tableId);
+             LuaNativeUtil.releaseNativeObject(_tableId);
         }
-
         super.finalize();
     }
 

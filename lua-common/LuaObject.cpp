@@ -9,6 +9,7 @@
 #include <map>
 #include <typeinfo>
 #include <mutex>
+#include <AndroidLog.h>
 
 using namespace cn::vimfung::luascriptcore;
 
@@ -29,26 +30,23 @@ static ObjectPoolMap _objectPool;
  */
 static std::mutex _objectPoolMutex;
 
-LuaObject::LuaObject()
-{
+LuaObject::LuaObject() {
     _retainCount = 1;
 
-    _objSeqId ++;
+    _objSeqId++;
     _objectId = _objSeqId;
 
     std::lock_guard<std::mutex> lck(_objectPoolMutex);
     _objectPool[_objectId] = this;
 }
 
-LuaObject::LuaObject (LuaObjectDecoder *decoder)
-{
+LuaObject::LuaObject(LuaObjectDecoder *decoder) {
     _retainCount = 1;
-    
-    _objectId = decoder -> readInt32();
-    if (_objectId == 0)
-    {
+
+    _objectId = decoder->readInt32();
+    if (_objectId == 0) {
         //分配对象标识
-        _objSeqId ++;
+        _objSeqId++;
         _objectId = _objSeqId;
     }
 
@@ -56,56 +54,45 @@ LuaObject::LuaObject (LuaObjectDecoder *decoder)
     _objectPool[_objectId] = this;
 }
 
-LuaObject::~LuaObject()
-{
+LuaObject::~LuaObject() {
     std::lock_guard<std::mutex> lck(_objectPoolMutex);
     ObjectPoolMap::iterator it = _objectPool.find(_objectId);
-    if (it != _objectPool.end())
-    {
+    if (it != _objectPool.end()) {
         _objectPool.erase(it);
     }
 }
 
-int LuaObject::objectId()
-{
+int LuaObject::objectId() {
     return _objectId;
 }
 
-void LuaObject::retain()
-{
-    _retainCount ++;
+void LuaObject::retain() {
+    _retainCount++;
 }
 
-void LuaObject::release()
-{
-    _retainCount --;
-    
-    if (_retainCount <= 0)
-    {
+void LuaObject::release() {
+    _retainCount--;
+    if (_retainCount <= 0) {
         delete this;
     }
 }
 
-std::string LuaObject::typeName()
-{
+std::string LuaObject::typeName() {
     static std::string name = typeid(LuaObject).name();
     return name;
 }
 
-void LuaObject::serialization (LuaObjectEncoder *encoder)
-{
-    encoder -> writeInt32(_objectId);
+void LuaObject::serialization(LuaObjectEncoder *encoder) {
+    encoder->writeInt32(_objectId);
 }
 
-LuaObject* LuaObject::findObject(int objectId)
-{
+LuaObject *LuaObject::findObject(int objectId) {
     std::lock_guard<std::mutex> lck(_objectPoolMutex);
     ObjectPoolMap::iterator it = _objectPool.find(objectId);
-    
-    if (it != _objectPool.end())
-    {
-        return it -> second;
+
+    if (it != _objectPool.end()) {
+        return it->second;
     }
-    
+
     return NULL;
 }

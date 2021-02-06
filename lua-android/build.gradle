@@ -62,7 +62,7 @@ publish {
     userOrg = 'hacknife'
     groupId = 'com.hacknife'
     artifactId = 'lua'
-    publishVersion = '0.0.2'
+    publishVersion = '0.2.0'
     desc = 'Lua'
     website = 'https://github.com/hacknife/lua'
 }
